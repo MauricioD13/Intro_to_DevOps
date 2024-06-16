@@ -35,3 +35,6 @@ terraform.rc
 aws_credentials
 .terraform.lock.hcl
 aws/
+basic_api/aws_credentials.sh
+basic_api/flask_api/.env/
+__pycache__/
