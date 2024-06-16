@@ -1,2 +1,6 @@
-# terraform_azure_wordpress
-Project to learn terraform using Azure cloud to build a Wordpress website
+# Introduction to Terraform
+The objective of this project is to learn terraform while I prepare to de AWS Cloud Solutions Architect Certification Exam
+
+
+
+
