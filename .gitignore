@@ -38,3 +38,9 @@ aws/
 basic_api/aws_credentials.sh
 basic_api/flask_api/.env/
 __pycache__/
+*.env/
+*.log
+
+__pycache*/
+*.env*/
+basic_api/SQS_MySQL/aws.sh
