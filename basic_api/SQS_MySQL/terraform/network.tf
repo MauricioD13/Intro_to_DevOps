@@ -1,6 +1,11 @@
 # VPC
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+  tags = {
+    Name = "main-vpc"
+  }
 }
 
 # SUBNETS
@@ -11,14 +16,18 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  vpc_id = aws_vpc.main.id
-  cidr_block = "10.0.2.0/24"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
   map_public_ip_on_launch = false
 }
 
 # Internet Gateway
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
+}
+
+resource "aws_eip" "main" {
+  depends_on = [aws_internet_gateway.igw]
 }
 
 # Route Table
@@ -68,26 +77,4 @@ resource "aws_security_group" "ec2_sg" {
   }
 }
 
-# RDS Security Group
-resource "aws_security_group" "rds_sg" {
-  name        = "rds_sg"
-  description = "Allow Lambda access to RDS"
-  vpc_id      = aws_vpc.main.id
-
-  ingress {
-    description      = "MySQL from Lambda"
-    from_port        = 3306
-    to_port          = 3306
-    protocol         = "tcp"
-    security_groups  = [aws_security_group.lambda_sg.id]
-  }
-
-  egress {
-    description = "All outbound"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 
