@@ -1,0 +1,42 @@
+services:
+  web:
+    image: "fastapi-recipes:latest"
+    ports:
+      - "8000:8000"
+    networks:
+      - app-tier
+      - database
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+  db:
+    image: "bitnami/mysql"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - database
+    environment:
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=supersecret123
+      - MYSQL_USER=bitnami
+      - MYSQL_PASSWORD=Test.123
+      - MYSQL_DATABASE=myapp
+    expose:
+      - "3306:3306"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "db"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+networks:
+  app-tier:
+    driver: bridge
+    external: true
+  database:
+
+volumes:
+  mysql-data:
