@@ -1,0 +1,19 @@
+plugin: amazon.aws.aws_ec2
+cache: false
+use_ssm_inventory: true
+
+regions:
+  - { { region } }
+
+
+keyed_groups:
+  - prefix: tag
+    key: tags
+  - prefix: instance_type
+    key: instance_type
+
+hostnames: 
+ - tag: private_name
+
+compose:
+  ansbile_host: public_ip_address

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home - Recipe Instructions
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Welcome to Our Recipe Website</h1>
+
+    <p>Here's how you can navigate and use the different pages on this site:</p>
+
+    <ul class="instructions-list">
+        <li><strong>Home:</strong> This is the main page where you can find general information about the website and instructions on how to use it.</li>
+
+        <li><strong>Users List:</strong> On the "Users List" page, you can view all the users. Each user has a list of recipes associated with them. If a user has no recipes, you can add a new recipe for them by clicking the "Create Recipe" button next to their name.</li>
+
+        <li><strong>Create Recipe:</strong> On the "Create Recipe" page, you can add new recipes to your profile. Fill in the recipe title, duration, ingredients, and steps, then submit the form to save your recipe.</li>
+
+        <li><strong>View Recipe:</strong> When you click on a recipe from the list, you'll be taken to a detailed view of the recipe, where you can see the ingredients, preparation steps, and the estimated cooking time.</li>
+
+        <li><strong>Login/Sign Up:</strong> If you are a new user, sign up to create an account and start adding your own recipes. If you already have an account, log in to access your profile and your saved recipes.</li>
+    </ul>
+</div>
+{% endblock %}
