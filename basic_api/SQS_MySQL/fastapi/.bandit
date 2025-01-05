@@ -1,4 +1,0 @@
-[bandit]
-
-exclude = *.html
-
