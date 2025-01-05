@@ -19,7 +19,7 @@ resource "aws_instance" "main" {
   vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
   associate_public_ip_address = true
   root_block_device {
-    volume_type = "gp2"
+    volume_type = "gp3"
     volume_size = 20
   }
   key_name = "recipe_key"
