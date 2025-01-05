@@ -1,15 +1,15 @@
 data "aws_ami" "main" {
   most_recent = true
   owners      = ["amazon"]
+
   filter {
     name   = "architecture"
     values = ["arm64"]
   }
   filter {
     name   = "name"
-    values = ["al2023-ami-2023"]
+    values = ["al2023-ami-2023*"]
   }
-
 }
 
 resource "aws_instance" "main" {
