@@ -1,0 +1,137 @@
+---
+- name: Setup user, Python environment and FastAPI service
+  hosts: all
+  become: true
+  vars:
+    username: pythondev
+    user_password: "{{ vault_user_password }}"
+    python_packages:
+      - pip3
+      - python3-dev
+      - python3-setuptools
+      - python3-venv
+  tasks:
+    - name: Create user group
+      group:
+        name: "{{ username }}"
+        state: present
+
+    - name: Create user account
+      user:
+        name: "{{ username }}"
+        password: "{{ username | password_hash('sha512') }}"
+        group: "{{ username }}"
+        shell: /bin/bash
+        creat_home: yes
+        state: present
+
+    - name: Update package cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+    - name: Install Python and development packages
+      apt:
+        name: "{{ python_packages }}"
+        state: present
+
+    # Server security
+    - name: Set strong password policy
+      lineinfile:
+        path: /etc/security/pwquality.conf
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: "^minlen", line: "minlen = 12" }
+        - { regexp: "^ucredit", line: "ucredit = -1" }
+        - { regexp: "^lcredit", line: "lcredit = -1" }
+        - { regexp: "^dcredit", line: "dcredit = -1" }
+        - { regexp: "^ocredit", line: "ocredit = -1" }
+
+    - name: Configure SSH security
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: "^PermitRootLogin", line: "PermitRootLogin no" }
+        - {
+            regexp: "^PasswordAuthentication",
+            line: "PasswordAuthentication yes",
+          }
+        - { regexp: "^X11Forwarding", line: "X11Forwarding no" }
+      notify: enabled
+
+    - name: Set up UFW firewall
+      ufw:
+        rule: "{{ item.rule }}"
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+        state: enabled
+      with_items:
+        - { rule: "allow", port: "22", proto: "tcp" } # SSH
+        - { rule: "allow", port: "8000", proto: "tcp" } # FastAPI
+        - { rule: "allow", port: "80", proto: "tcp" } # HTTP
+        - { rule: "allow", port: "443", proto: "tcp" } # HTTPS
+      notify: restart sshd
+
+    # Python configurations
+    - name: Create destination directory
+      file:
+        path: "/home/{{ username }}/app"
+        state: directory
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: "0755"
+
+    - name: Copy application files from local /app directory
+      copy:
+        src: /fastapi/
+        dest: "/home/{{ username }}/app"
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        mode: preserve
+
+    - name: Create Python virtual environment
+      become_user: "{{ username }}"
+      command: python3 -m venv /home/{{ username }}/.env
+      args:
+        creates: home/{{ username }}/.env
+
+    - name: Install requirements
+      become_user: "{{ username }}"
+      pip:
+        requirements: "/home/{{ username }}/app/requirements.txt"
+        virtualenv: "/home/{{ username }}/app/.env"
+        state: present
+
+    - name: Create FastAPI systemd service
+      copy:
+        dest: /etc/systemd/system/fastapi.service
+        content: |
+          [Unit]
+          Description=FastAPI application
+          After=network.target
+
+          [Service]
+          User={{ username }}
+          Group={{ username }}
+          WorkingDirectory=/home/{{ username }}/app
+          Environment="PATH=/home/{{ username }}/app/.env/bin"
+          ExecStart=/home/{{ username }}/.env/bin/uvicorn main:app --host 0.0.0.0 --port 80
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start and enable FastAPI service
+      systemd:
+        name: fastapi
+        state: started
+        enabled: yes
+        daemon_reload: yes
+
+  handlers:
+    - name: restart sshd
+      service:
+        name: sshd
+        state: restarted
