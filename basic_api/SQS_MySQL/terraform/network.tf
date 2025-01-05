@@ -18,7 +18,7 @@ resource "aws_subnet" "public" {
 # EC2 Security Group
 resource "aws_security_group" "ec2_sg" {
   name        = "ec2_sg"
-  description = "Allow SSH and HTTP"
+  description = "Allow SSH, HTTP and FastAPI port"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -33,6 +33,13 @@ resource "aws_security_group" "ec2_sg" {
     description = "HTTP"
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "FastAPI"
+    from_port   = 8000
+    to_port     = 8000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
