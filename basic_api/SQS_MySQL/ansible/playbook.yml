@@ -85,7 +85,7 @@
 
     - name: Copy application files from local /app directory
       copy:
-        src: /fastapi/
+        src: ../app/
         dest: "/home/{{ username }}/app"
         owner: "{{ username }}"
         group: "{{ username }}"
