@@ -1,6 +1,7 @@
 services:
   web:
     image: "fastapi-recipes:latest"
+    container_name: recipes_docker
     ports:
       - "8000:8000"
     networks:
