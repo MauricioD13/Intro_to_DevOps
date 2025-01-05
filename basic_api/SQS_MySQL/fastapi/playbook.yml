@@ -93,9 +93,9 @@
 
     - name: Create Python virtual environment
       become_user: "{{ username }}"
-      command: python3 -m venv /home/{{ username }}/.env
+      command: python3 -m venv /home/{{ username }}/app/.env
       args:
-        creates: home/{{ username }}/.env
+        creates: home/{{ username }}/app/.env
 
     - name: Install requirements
       become_user: "{{ username }}"
