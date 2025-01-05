@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from . import models
-from . import schemas
+import models
+import schemas
 
 
 def get_user(db: Session, user_id: int):
@@ -16,7 +16,7 @@ def get_users(db: Session, skip: int = 0, limit: int = 10):
 
 
 def create_user(db: Session, user: schemas.UserCreate):
-    """_summary_
+    """_summary_from app import
 
     Args:
         db (Session): _description_

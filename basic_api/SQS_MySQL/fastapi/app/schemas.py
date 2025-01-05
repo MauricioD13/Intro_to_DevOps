@@ -12,7 +12,7 @@ class Recipe(RecipeBase):
     id: int
     user_id: int
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
 class UserBase(BaseModel):
     email: str
@@ -25,5 +25,5 @@ class User(UserBase):
     is_active: bool
     recipes: list[Recipe] = []
 
-    class Config:
+    class ConfigDict:
         orm_mode = True
