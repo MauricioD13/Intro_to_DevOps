@@ -25,7 +25,7 @@
         name: "{{ username }}"
         password: "{{ username | password_hash('sha512') }}"
         group: "{{ username }}"
-        shell: /bin/bashAnsible
+        shell: /bin/bash/
         creat_home: yes
         state: present
 
