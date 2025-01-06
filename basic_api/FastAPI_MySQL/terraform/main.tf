@@ -22,7 +22,7 @@ resource "aws_instance" "main" {
     volume_type = "gp3"
     volume_size = 20
   }
-  key_name = "recipe_key"
+  key_name = "tf_key"
   tags = {
     Name = "RecipeApp"
   }
