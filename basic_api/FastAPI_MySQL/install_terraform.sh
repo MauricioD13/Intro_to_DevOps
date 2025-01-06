@@ -21,3 +21,4 @@ sudo ./aws/install
 # Verify installation
 terraform --version
 ansible --version
+aws --version
