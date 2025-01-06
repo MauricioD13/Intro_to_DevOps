@@ -8,7 +8,7 @@ cd terraform
 terraform init
 
 echo "2. Applying Terraform configuration..."
-terraform apply -auto-approve -var="key_name=tf_key"
+terraform apply -auto-approve
 
 echo "3. Getting EC2 instance IP..."
 INSTANCE_IP=$(terraform output -raw instance_public_ip)
