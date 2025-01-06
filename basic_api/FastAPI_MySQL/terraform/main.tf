@@ -1,14 +1,17 @@
 data "aws_ami" "main" {
   most_recent = true
-  owners      = ["amazon"]
-
+  owners      = ["099720109477"] # Canonical's AWS account ID
   filter {
     name   = "architecture"
-    values = ["arm64"]
+    values = ["x86_64"] # Corrected architecture value
   }
   filter {
     name   = "name"
-    values = ["al2023-ami-2023*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"]
+  }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
   }
 }
 
