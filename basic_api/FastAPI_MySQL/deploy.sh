@@ -18,7 +18,7 @@ sleep 60
 
 echo "5. Creating Ansible inventory..."
 cd ../ansible
-sed "s/\${terraform_ip}/$INSTANCE_IP/" inventory.ini.template > inventory.ini
+sed "s/\${terraform_ip}/$INSTANCE_IP/g" inventory.ini.template > inventory.ini
 
 echo "6. Running Ansible playbook..."
 ansible-playbook -i inventory.ini playbook.yml
