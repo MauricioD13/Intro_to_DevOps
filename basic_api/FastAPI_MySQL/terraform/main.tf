@@ -17,4 +17,5 @@ resource "aws_instance" "main" {
   tags = {
     Name = "RecipeApp"
   }
+  depends_on = [aws_vpc.main, aws_subnet.public]
 }
