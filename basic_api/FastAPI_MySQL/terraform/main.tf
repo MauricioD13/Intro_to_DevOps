@@ -1,22 +1,10 @@
-data "aws_ami" "main" {
-  most_recent = true
-  owners      = ["099720109477"] # Canonical's AWS account ID
-  filter {
-    name   = "architecture"
-    values = ["x86_64"] # Corrected architecture value
-  }
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+variable "ami" {
+  description = "The AMI to use for the instance"
+  type        = string
+  default     = "ami-0e9085e60087ce171"
 }
-
 resource "aws_instance" "main" {
-  ami                         = data.aws_ami.main.id
+  ami                         = var.ami
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
