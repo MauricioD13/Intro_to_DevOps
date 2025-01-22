@@ -2,6 +2,8 @@
 - name: Setup user, Python environment and FastAPI service
   hosts: all
   become: true
+  vars_files:
+    - secrets.yml
   vars:
     username: pythondev
     user_password: "{{ vault_user_password }}"
