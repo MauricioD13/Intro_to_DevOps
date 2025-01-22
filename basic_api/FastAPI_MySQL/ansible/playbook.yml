@@ -37,7 +37,7 @@
         password: "{{ password }}"
         group: "{{ username }}"
         shell: /bin/bash/
-        creat_home: yes
+        create_home: yes
         state: present
 
     # Server security
