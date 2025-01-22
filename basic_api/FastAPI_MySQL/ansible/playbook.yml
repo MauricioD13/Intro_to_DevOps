@@ -32,7 +32,7 @@
     - name: Create user account
       user:
         name: "{{ username }}"
-        password: "{{ username | password_hash('sha512') }}"
+        password: "{{ password }}"
         group: "{{ username }}"
         shell: /bin/bash/
         creat_home: yes
