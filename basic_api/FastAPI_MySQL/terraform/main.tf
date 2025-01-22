@@ -1,7 +1,7 @@
 variable "ami" {
   description = "The AMI to use for the instance"
   type        = string
-  default     = "ami-0e2420433e60829b5"
+  default     = "ami-03fd334507439f4d1"
 }
 resource "aws_instance" "main" {
   ami                         = var.ami
