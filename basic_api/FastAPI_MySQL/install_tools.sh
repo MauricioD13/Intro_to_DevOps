@@ -1,12 +1,14 @@
 #!/bin/bash
 
 set -e
-
+# aws --region eu-west-1 ec2 create-key-pair --key-name "tf_key" --query 'KeyMaterial' --output text > mykey.pem
 # Install Ansible
 sudo apt install -y unzip pipx python3-pip python3 gnupg software-properties-common curl
 python3 -m pipx ensurepath
 source ~/.bashrc
 pipx install --include-deps ansible
+pipx ensurepath
+echo "re-login to apply changes and use ansible"
 
 # Install Terraform
 wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
