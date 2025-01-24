@@ -128,13 +128,13 @@
         mode: preserve
 
     - name: Create Python virtual environment
-      become_user: "{{ username }}"
+      #become_user: "{{ username }}"
       command: python3 -m venv /home/{{ username }}/app/.env
       args:
         creates: home/{{ username }}/app/.env
 
     - name: Install requirements
-      become_user: "{{ username }}"
+      #become_user: "{{ username }}"
       pip:
         requirements: "/home/{{ username }}/app/requirements.txt"
         virtualenv: "/home/{{ username }}/app/.env"
