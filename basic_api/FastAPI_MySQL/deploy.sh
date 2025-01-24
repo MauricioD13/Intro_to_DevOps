@@ -21,6 +21,6 @@ cd ../ansible
 sed "s/\${terraform_ip}/$INSTANCE_IP/g" inventory.ini.template > inventory.ini
 
 echo "6. Running Ansible playbook..."
-ansible-playbook -i inventory.ini playbook.yml
+ansible-playbook -i inventory.ini playbook.yml --ask-vault-pass
 
 echo "Done! Your application is now deployed at http://$INSTANCE_IP:8000"
