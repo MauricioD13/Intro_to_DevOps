@@ -166,6 +166,10 @@
         enabled: yes
         daemon_reload: yes
 
+    - name: Reboot server
+      reboot:
+        msg: "Rebooting server to apply changes"
+
   handlers:
     - name: restart sshd
       service:
