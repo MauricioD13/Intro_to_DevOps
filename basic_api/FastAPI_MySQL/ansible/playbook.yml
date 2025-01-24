@@ -99,7 +99,7 @@
     - name: Creating DB
       mysql_db:
         name: "{{db_name}}"
-        state: prensent
+        state: present
 
     - name: Enable remote login to mysql
       lineinfile:
