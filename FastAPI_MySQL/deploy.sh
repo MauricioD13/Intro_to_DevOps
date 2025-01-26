@@ -6,6 +6,7 @@ echo "1. Initializing Terraform..."
 
 cd terraform
 terraform init
+export AWS_PROFILE=personal
 
 echo "2. Applying Terraform configuration..."
 terraform apply -auto-approve
@@ -21,6 +22,6 @@ cd ../ansible
 sed "s/\${terraform_ip}/$INSTANCE_IP/g" inventory.ini.template > inventory.ini
 
 echo "6. Running Ansible playbook..."
-ansible-playbook -i inventory.ini playbook.yml --ask-vault-pass
+ansible-playbook -i inventory.ini playbook.yml 
 
 echo "Done! Your application is now deployed at http://$INSTANCE_IP:8000"

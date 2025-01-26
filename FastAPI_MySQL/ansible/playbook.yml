@@ -3,10 +3,10 @@
   hosts: all
   become: true
   vars_files:
-    - secrets.yml
+    - vars.yml
   vars:
     username: pythondev
-    user_password: "{{ vault_user_password }}"
+    user_password: "{{ user_password }}"
     dependencies_packages:
       - python3-pip
       - python3-dev
@@ -27,7 +27,7 @@
       apt:
         name: "{{ dependencies_packages }}"
         state: present
-        
+
     - name: Create user group
       group:
         name: "{{ username }}"
