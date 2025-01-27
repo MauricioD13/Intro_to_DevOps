@@ -10,7 +10,7 @@ param_names = [
     "/myapp/prod/db_endpoint",
 ]
 """
-params = aws_config.get_parameters(param_names, region="eu-west-1")
+#params = aws_config.get_parameters(param_names, region="eu-west-1")
 
 SQLALCHEMY_DATABASE_URL = URL.create(
     "mysql+pymysql",
