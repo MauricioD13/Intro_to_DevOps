@@ -144,8 +144,6 @@
         virtualenv: "/home/{{ username }}/app/.env"
         state: present
 
-    - name: Set environment variables
-
     - name: Create FastAPI systemd service
       template:
         src: fastapi.service.j2
