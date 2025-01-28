@@ -140,12 +140,11 @@
         state: present
 
     - name: Set environment variables
-      command: export "{{ item }}"
-      loop:
-        - MYSQL_HOST=localhost
-        - MYSQL_USER={{ db_user }}
-        - MYSQL_PASSWORD={{ db_pass }}
-        - MYSQL_DATABASE={{ db_name }}
+      environment:
+        MYSQL_HOST: "localhost"
+        MYSQL_USER: "{{ db_user }}"
+        MYSQL_PASSWORD: "{{ db_pass }}"
+        MYSQL_DATABASE: "{{ db_name }}"
 
     - name: Create FastAPI systemd service
       template:
