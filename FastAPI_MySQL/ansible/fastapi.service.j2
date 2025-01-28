@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User={{ username }}
-Group={{ username}}
+Group={{ username }}
 WorkingDirectory=/home/{{ username }}/app
 Environment="PATH=/home/{{ username }}/app/.env/bin"
 ExecStart=/home/{{ username }}/app/.env/bin/uvicorn main:app --host 0.0.0.0 --port 8000
