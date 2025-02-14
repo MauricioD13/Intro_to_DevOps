@@ -19,10 +19,10 @@ with open('data.json', 'r') as file:
 
 SQLALCHEMY_DATABASE_URL = URL.create(
     "mysql+pymysql",
-    username = data["db_user"],
-    password = data["db_pass"],
-    host = "localhost",
-    database = data["db_name"],
+    username = os.environ.get("DB_USER"),
+    password = os.environ.get("DB_PASS"),
+    host = os.environ.get("DB_HOST"),
+    database = os.environ.get("DB_NAME"),
 )
 engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread": False})
 
