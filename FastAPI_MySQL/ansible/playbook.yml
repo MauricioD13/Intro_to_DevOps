@@ -158,8 +158,7 @@
         virtualenv: "/home/{{ username }}/app/.env"
         state: present
 
-    - name: Create FastAT={{ MYSQL_HOST }}
-    - name: Reload .basPI systemd service
+    - name: Create FastAPI systemd service
       template:
         src: fastapi.service.j2
         dest: /etc/systemd/system/fastapi.service
