@@ -122,7 +122,7 @@
           export DB_NAME={{ db_name }}
           export DB_USER={{ db_user }}
           export DB_PASS={{ db_pass }}
-          export DB_HOST={{ MYSQL_HOST }}
+          export DB_HOST={{ db_host }}
         marker: "# {mark} ANSIBLE MANAGED BLOCK"
     - name: Reload .bashrc for changes to take effect
       command: source /home/{{ username }}/.bashrc
