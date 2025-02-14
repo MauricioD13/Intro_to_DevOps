@@ -114,23 +114,6 @@
       notify:
         - restart mysql
 
-    # Env vars
-    - name: Create .bashrc file
-      file:
-        path: /home/{{ username }}/.bashrc
-        state: touch
-    - name: Environment variables for app
-      blockinfile:
-        path: /home/{{ username }}/.bashrc
-        block: |
-          export DB_NAME={{ db_name }}
-          export DB_USER={{ db_user }}
-          export DB_PASS={{ db_pass }}
-          export DB_HOST={{ db_host }}
-        marker: "# {mark} ANSIBLE MANAGED BLOCK"
-      notify:
-        - restart server
-
     # Python configurations
     - name: Create destination directory
       file:
