@@ -114,6 +114,20 @@
       notify:
         - restart mysql
 
+    # Env vars
+    - name: Environment variables for app
+      blockinfile:
+        path: /home/{{ username }}/.bashrc
+        block: |
+          export DB_NAME={{ db_name }}
+          export DB_USER={{ db_user }}
+          export DB_PASS={{ db_pass }}
+          export DB_HOST={{ MYSQL_HOST }}
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    - name: Reload .bashrc for changes to take effect
+      command: source /home/{{ username }}/.bashrc
+      become_user: "{{ username }}"
+
     # Python configurations
     - name: Create destination directory
       file:
@@ -144,7 +158,8 @@
         virtualenv: "/home/{{ username }}/app/.env"
         state: present
 
-    - name: Create FastAPI systemd service
+    - name: Create FastAT={{ MYSQL_HOST }}
+    - name: Reload .basPI systemd service
       template:
         src: fastapi.service.j2
         dest: /etc/systemd/system/fastapi.service
