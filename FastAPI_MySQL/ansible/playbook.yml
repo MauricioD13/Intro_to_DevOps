@@ -115,6 +115,10 @@
         - restart mysql
 
     # Env vars
+    - name: Create .bashrc file
+      file:
+        path: /home/{{ username }}/.bashrc
+        state: touch
     - name: Environment variables for app
       blockinfile:
         path: /home/{{ username }}/.bashrc
