@@ -126,7 +126,6 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK"
     - name: Reload .bashrc for changes to take effect
       command: source /home/{{ username }}/.bashrc
-      become_user: "{{ username }}"
 
     # Python configurations
     - name: Create destination directory
