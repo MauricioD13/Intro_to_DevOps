@@ -15,16 +15,22 @@ param_names = [
 with open('data.json', 'r') as file:
     data = json.load(file)
     
+USERNAME = "fastapi"
+PASSWORD = "fastapi"
+HOST = "recipes_mysql"
+DATABASE = "recipes"
+PORT = 3306
 
-
-SQLALCHEMY_DATABASE_URL = URL.create(
+DATABASE_URL = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+"""URL.create(
     "mysql+pymysql",
     username = "fastapi",
     password = "fastapi",
     host = "localhost",
     database = "recipes",
-)
-engine = create_engine(SQLALCHEMY_DATABASE_URL,connect_args={"check_same_thread": False})
+    port = 3306
+)"""
+engine = create_engine(DATABASE_URL)
 
 
 # SQLALCHEMY_DATABASE_URL = "mysql+pymysql://bitnami:test123@db:3306/myapp"
