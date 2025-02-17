@@ -17,6 +17,12 @@ INSTANCE_IP=$(terraform output -raw instance_public_ip)
 echo "4. Waiting for instance to be ready..."
 sleep 60
 
+echo "5. Verifying SSH key..."
+if [ ! -f ~/.ssh/ec2_key.pem ]; then
+    echo "SSH key not found. Create key file..."
+    exit 1
+fi
+
 echo "5. Creating Ansible inventory..."
 cd ../ansible
 sed "s/\${terraform_ip}/$INSTANCE_IP/g" inventory.ini.template > inventory.ini
