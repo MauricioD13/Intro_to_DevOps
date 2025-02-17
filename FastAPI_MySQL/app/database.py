@@ -17,7 +17,7 @@ with open('data.json', 'r') as file:
     
 USERNAME = "fastapi"
 PASSWORD = "fastapi"
-HOST = "recipes_mysql"
+HOST = "localhost"
 DATABASE = "recipes"
 PORT = 3306
 
