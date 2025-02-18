@@ -5,3 +5,14 @@ db_user: "fastapi"
 db_pass: "fastapi"
 db_name: "recipes"
 db_host: "localhost"
+dependencies_packages:
+  - python3-pip
+  - python3-dev
+  - python3-setuptools
+  - python3-venv
+  - python3-passlib
+  - mysql-server
+  - mysql-client
+  - python3-mysqldb
+  - libmysqlclient-dev
+  - libpwquality-tools

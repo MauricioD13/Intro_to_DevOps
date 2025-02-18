@@ -9,20 +9,6 @@
   become: true
   vars_files:
     - vars.yml
-  vars:
-    username: pythondev
-    user_password: "{{ user_password }}"
-    dependencies_packages:
-      - python3-pip
-      - python3-dev
-      - python3-setuptools
-      - python3-venv
-      - python3-passlib
-      - mysql-server
-      - mysql-client
-      - python3-mysqldb
-      - libmysqlclient-dev
-      - libpwquality-tools
   tasks:
     - name: Update package cache
       apt:
