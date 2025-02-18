@@ -29,7 +29,7 @@
         name: "{{ username }}"
         password: "{{ password | password_hash('sha512') }}"
         group: "{{ username }}"
-        shell: /bin/bash/
+        shell: /bin/bash
         create_home: yes
         state: present
 
