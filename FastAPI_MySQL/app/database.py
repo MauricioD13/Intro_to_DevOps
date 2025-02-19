@@ -15,10 +15,10 @@ param_names = [
 with open('data.json', 'r') as file:
     data = json.load(file)
     
-USERNAME = "fastapi"
-PASSWORD = "fastapi"
-HOST = "localhost"
-DATABASE = "recipes"
+USERNAME = os.environ['DB_USER']
+PASSWORD = os.environ['DB_PASS']
+HOST = os.environ['DB_HOST']
+DATABASE = os.environ['DB_NAME']
 PORT = 3306
 
 DATABASE_URL = f"mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
