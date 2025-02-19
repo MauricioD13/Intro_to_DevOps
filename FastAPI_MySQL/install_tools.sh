@@ -7,6 +7,7 @@ sudo apt install -y unzip pipx python3-pip python3 gnupg software-properties-com
 python3 -m pipx ensurepath
 source ~/.bashrc
 pipx install --include-deps ansible
+pipx inject ansible passlib
 pipx ensurepath
 echo "re-login to apply changes and use ansible"
 
