@@ -67,7 +67,7 @@
         state: enabled
       loop:
         - { rule: "allow", port: "22", proto: "tcp" } # SSH
-        - { rule: "allow", port: "8000", proto: "tcp" } # FastAPI
+        - { rule: "allow", port: "{{ port }}", proto: "tcp" } # FastAPI
         - { rule: "allow", port: "80", proto: "tcp" } # HTTP
         - { rule: "allow", port: "443", proto: "tcp" } # HTTPS
 
