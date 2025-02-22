@@ -113,7 +113,6 @@
       synchronize:
         src: ../app/
         dest: "/home/{{ username }}/app"
-        mode: preserve
         rsync_opts:
           - "--chown={{ username }}:{{ username }}"
           - "--chmod=0755"
