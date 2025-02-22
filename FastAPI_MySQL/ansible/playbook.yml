@@ -110,12 +110,16 @@
         mode: "0755"
 
     - name: Copy application files from local /app directory
-      copy:
+      synchronize:
         src: ../app/
         dest: "/home/{{ username }}/app"
-        owner: "{{ username }}"
-        group: "{{ username }}"
         mode: preserve
+        rsync_opts:
+          - "--chown={{ username }}:{{ username }}"
+          - "--chmod=0755"
+          - "--exclude=__pycache__"
+          - "--exclude=.env"
+          - "--exclude=.pytest_cache"
 
     - name: Create Python virtual environment
       #become_user: "{{ username }}"
